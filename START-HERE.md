@@ -8,6 +8,14 @@
 
 # 🎯 STOP! READ THIS FIRST 🎯
 
+## 🎉 NEW: Laravel 12 is Pre-Installed!
+
+This environment now includes **Laravel 12** fully configured with MySQL. If you're here for the web development assignment, you're ready to code!
+
+**👉 After setup, read:** [LARAVEL-GUIDE.md](LARAVEL-GUIDE.md) for Laravel tutorials.
+
+---
+
 ## 👇 Choose Your Path:
 
 <table>

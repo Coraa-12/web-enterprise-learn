@@ -6,6 +6,7 @@
 *.swo
 .DS_Store
 Thumbs.db
+nul
 
 # Composer
 /vendor/
