@@ -6,14 +6,14 @@ RUN apk add --no-cache \
     bash \
     git \
     curl \
-    libzip-dev \
-    postgresql-dev
+    libzip-dev
 
-# Install the PHP extensions we'll need for a Laravel application
+# Install the PHP extensions we'll need (including MySQL support!)
 RUN docker-php-ext-install -j$(nproc) \
     bcmath \
     pdo \
-    pdo_pgsql \
+    pdo_mysql \
+    mysqli \
     zip
 
 # --- NEW SECTION: Install Composer ---

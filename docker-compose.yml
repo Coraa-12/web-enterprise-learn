@@ -4,6 +4,12 @@ services:
     build: . # Tells Docker to build an image from the Dockerfile in this directory
     volumes:
       - ./:/var/www/html # Mounts your project code into the container
+    environment:
+      DB_HOST: mysql
+      DB_PORT: 3306
+      DB_DATABASE: app_db
+      DB_USERNAME: root
+      DB_PASSWORD: secret
     networks:
       - app-net
 
@@ -20,15 +26,31 @@ services:
     networks:
       - app-net
 
-  # The PostgreSQL Database Service
-  postgres:
-    image: postgres:16-alpine # Use a standard PostgreSQL image
+  # The MySQL Database Service (like in XAMPP!)
+  mysql:
+    image: mysql:8.0 # Use the standard MySQL image
     environment:
-      POSTGRES_USER: app
-      POSTGRES_PASSWORD: secret
-      POSTGRES_DB: app_db
+      MYSQL_ROOT_PASSWORD: secret
+      MYSQL_DATABASE: app_db
     volumes:
-      - pg-data:/var/lib/postgresql/data # Persist database data on your machine
+      - mysql-data:/var/lib/mysql # Persist database data on your machine
+    ports:
+      - "3306:3306" # Expose MySQL port if you want to use external tools
+    networks:
+      - app-net
+
+  # phpMyAdmin - Your Database Manager (like in XAMPP!)
+  phpmyadmin:
+    image: phpmyadmin:latest
+    ports:
+      - "8081:80" # Access phpMyAdmin at http://localhost:8081
+    environment:
+      PMA_HOST: mysql
+      PMA_PORT: 3306
+      PMA_USER: root
+      PMA_PASSWORD: secret
+    depends_on:
+      - mysql
     networks:
       - app-net
 
@@ -36,4 +58,4 @@ networks:
   app-net: # The private network our services use to talk to each other
 
 volumes:
-  pg-data: # The named volume for our database
+  mysql-data: # The named volume for our database
