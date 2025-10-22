@@ -1,0 +1,42 @@
+name: PHP Quality Assurance
+
+# Triggers the workflow on push events for the main branch and on pull requests
+on:
+    push:
+        branches: ["main"]
+    pull_request:
+        branches: ["main"]
+
+jobs:
+    build-and-test:
+        # The type of runner that the job will run on
+        runs-on: ubuntu-latest
+
+        steps:
+            # 1. Check out the repository code
+            - name: Checkout code
+              uses: actions/checkout@v4
+
+            # 2. Set up PHP with extensions
+            - name: Setup PHP
+              uses: shivammathur/setup-php@v2
+              with:
+                  php-version: "8.3"
+                  extensions: bcmath, pdo, pdo_pgsql, zip # Match your Dockerfile
+                  tools: composer
+
+            # 3. Install Composer dependencies
+            - name: Install dependencies
+              run: composer install --prefer-dist --no-progress
+
+            # 4. Run Code Formatter Check (Dry Run)
+            - name: Check formatting
+              run: ./vendor/bin/php-cs-fixer fix --allow-risky=yes --dry-run --diff
+
+            # 5. Run Static Analysis
+            - name: Run static analysis
+              run: ./vendor/bin/phpstan analyse
+
+            # 6. Run Test Suite
+            - name: Run tests
+              run: ./vendor/bin/pest

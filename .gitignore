@@ -1,0 +1,48 @@
+# IDE & OS specific files
+.idea/
+.vscode/
+*.sublime-*
+*.swp
+*.swo
+.DS_Store
+Thumbs.db
+
+# Composer
+/vendor/
+composer.phar
+composer.lock
+
+# Environment variables
+.env
+.env.backup
+.env.local
+.env.*.local
+
+# Cache and logs
+/log/
+/logs/
+/cache/
+*.log
+npm-debug.log*
+
+# Build directories
+/build/
+/dist/
+/public/build/
+/public/hot/
+/public/storage/
+
+# Dependencies
+/node_modules/
+package-lock.json
+
+# Testing
+/.phpunit.result.cache
+/coverage/
+
+# Application specific
+/storage/*.key
+/storage/framework/cache/*
+/storage/framework/sessions/*
+/storage/framework/views/*
+/storage/app/*
