@@ -1,6 +1,6 @@
-# 🚀 PHP Development Environment (Better Than XAMPP!)
+# 🚀 Laravel + Docker Development Environment (Better Than XAMPP!)
 
-> **A Docker-based development environment that's EASIER than XAMPP/Laragon, not harder!**
+> **A Docker-based Laravel development environment that's EASIER than XAMPP/Laragon, not harder!**
 
 ---
 
@@ -9,6 +9,10 @@
 ### 👉 **[START HERE: Read START-HERE.md](START-HERE.md)** 👈
 
 That file will guide you to the right documentation based on your experience level!
+
+### 📖 **NEW: Laravel Guide for Beginners**
+This environment now includes **Laravel 12** pre-configured with MySQL!
+**[Read LARAVEL-GUIDE.md](LARAVEL-GUIDE.md)** to learn how to build your first Laravel features.
 
 ---
 
@@ -20,7 +24,7 @@ That file will guide you to the right documentation based on your experience lev
 
 1. **Double-click:** `check-system.bat` (make sure everything is ready)
 2. **Double-click:** `start.bat` (start everything)
-3. **Open browser:** `http://localhost:8080` (see your website!)
+3. **Open browser:** `http://localhost:8080` (see your Laravel app!)
 
 **That's it!** No configuration, no PATH variables, no port conflicts. It just works.
 
