@@ -137,7 +137,7 @@ Instead, share your work like this:
 
 ### "Download is really slow"
 
-**Solution:** 
+**Solution:**
 - The project is ~50MB
 - On slow internet, this takes 5-10 minutes
 - Get coffee ☕
@@ -155,7 +155,7 @@ Instead, share your work like this:
 
 ### "Git says 'permission denied'"
 
-**Solution:** 
+**Solution:**
 - This is CORRECT! Students can't push.
 - You can only pull/download, not push/upload
 - If you need to share work, see "Sharing Your Work" above
