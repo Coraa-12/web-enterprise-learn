@@ -128,7 +128,7 @@ student-template     ← Student downloads
    ```bash
    git checkout -b project-ecommerce boilerplate-generic
    # Add e-commerce theme...
-   
+
    git checkout -b project-portfolio boilerplate-generic
    # Add portfolio theme...
    ```
@@ -166,6 +166,6 @@ student-template     ← Student downloads
 
 ---
 
-**Last Updated:** October 22, 2025  
-**Maintainer:** @Coraa-12  
+**Last Updated:** October 22, 2025
+**Maintainer:** @Coraa-12
 **Repository:** https://github.com/Coraa-12/web-enterprise-learn
