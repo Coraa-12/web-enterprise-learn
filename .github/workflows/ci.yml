@@ -1,16 +1,31 @@
-name: PHP Quality Assurance
+name: Laravel Quality Assurance
 
 # Triggers the workflow on push events for the main branch and on pull requests
 on:
     push:
-        branches: ["main"]
+        branches: ["main", "dev"]
     pull_request:
-        branches: ["main"]
+        branches: ["main", "dev"]
 
 jobs:
     build-and-test:
         # The type of runner that the job will run on
         runs-on: ubuntu-latest
+
+        # Service containers for testing
+        services:
+            mysql:
+                image: mysql:8.0
+                env:
+                    MYSQL_ROOT_PASSWORD: secret
+                    MYSQL_DATABASE: testing
+                ports:
+                    - 3306:3306
+                options: >-
+                    --health-cmd="mysqladmin ping"
+                    --health-interval=10s
+                    --health-timeout=5s
+                    --health-retries=3
 
         steps:
             # 1. Check out the repository code
@@ -22,21 +37,39 @@ jobs:
               uses: shivammathur/setup-php@v2
               with:
                   php-version: "8.3"
-                  extensions: bcmath, pdo, pdo_pgsql, zip # Match your Dockerfile
+                  extensions: bcmath, pdo, pdo_mysql, mysqli, zip
                   tools: composer
 
-            # 3. Install Composer dependencies
+            # 3. Copy environment file
+            - name: Copy .env
+              run: cp .env.example .env
+
+            # 4. Install Composer dependencies
             - name: Install dependencies
-              run: composer install --prefer-dist --no-progress
+              run: composer install --prefer-dist --no-progress --no-interaction
 
-            # 4. Run Code Formatter Check (Dry Run)
-            - name: Check formatting
-              run: ./vendor/bin/php-cs-fixer fix --allow-risky=yes --dry-run --diff
+            # 5. Generate application key
+            - name: Generate key
+              run: php artisan key:generate
 
-            # 5. Run Static Analysis
-            - name: Run static analysis
-              run: ./vendor/bin/phpstan analyse
+            # 6. Run database migrations
+            - name: Run migrations
+              env:
+                  DB_CONNECTION: mysql
+                  DB_HOST: 127.0.0.1
+                  DB_PORT: 3306
+                  DB_DATABASE: testing
+                  DB_USERNAME: root
+                  DB_PASSWORD: secret
+              run: php artisan migrate --force
 
-            # 6. Run Test Suite
+            # 7. Run Test Suite
             - name: Run tests
-              run: ./vendor/bin/pest
+              env:
+                  DB_CONNECTION: mysql
+                  DB_HOST: 127.0.0.1
+                  DB_PORT: 3306
+                  DB_DATABASE: testing
+                  DB_USERNAME: root
+                  DB_PASSWORD: secret
+              run: php artisan test
