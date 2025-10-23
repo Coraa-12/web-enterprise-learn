@@ -5,6 +5,7 @@ namespace Database\Seeders;
 use App\Models\User;
 use App\Models\Category;
 use App\Models\Book;
+use App\Models\Profile;
 use Illuminate\Database\Console\Seeds\WithoutModelEvents;
 use Illuminate\Database\Seeder;
 
@@ -56,9 +57,36 @@ class DatabaseSeeder extends Seeder
         ]);
 
         // Create test user
-        User::factory()->create([
+        $testUser = User::factory()->create([
             'name' => 'Test User',
             'email' => 'test@example.com',
+        ]);
+
+        // Create profile for test user (One-to-One relationship)
+        Profile::create([
+            'user_id' => $testUser->id,
+            'bio' => 'Dedicated admin managing our community and ensuring smooth operations. Passionate about web development and teaching.',
+        ]);
+
+        // Create additional users with profiles
+        $johnDoe = User::factory()->create([
+            'name' => 'John Doe',
+            'email' => 'john@example.com',
+        ]);
+
+        Profile::create([
+            'user_id' => $johnDoe->id,
+            'bio' => 'Full-stack developer specializing in Laravel and Vue.js. Loves building scalable web applications.',
+        ]);
+
+        $janeDoe = User::factory()->create([
+            'name' => 'Jane Doe',
+            'email' => 'jane@example.com',
+        ]);
+
+        Profile::create([
+            'user_id' => $janeDoe->id,
+            'bio' => 'UI/UX designer with a passion for creating beautiful and intuitive user experiences.',
         ]);
     }
 }
