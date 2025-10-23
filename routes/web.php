@@ -1,6 +1,7 @@
 <?php
 
 use App\Http\Controllers\UserController;
+use App\Http\Controllers\AuthorController;
 use Illuminate\Support\Facades\Route;
 
 Route::get('/', function () {
@@ -20,3 +21,5 @@ Route::get('/blog', function () {
 });
 
 Route::get('/users', [UserController::class, 'index'])->name('users.index');
+
+Route::get('/authors', [AuthorController::class, 'index'])->name('authors.index');

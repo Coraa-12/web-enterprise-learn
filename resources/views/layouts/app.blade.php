@@ -41,6 +41,9 @@
                     <li class="nav-item">
                         <a class="nav-link {{ request()->is('users*') ? 'active' : '' }}" href="{{ url('/users') }}">Users</a>
                     </li>
+                    <li class="nav-item">
+                        <a class="nav-link {{ request()->is('authors*') ? 'active' : '' }}" href="{{ url('/authors') }}">Authors</a>
+                    </li>
                 </ul>
             </div>
         </div>

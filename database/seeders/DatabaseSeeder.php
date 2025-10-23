@@ -6,6 +6,7 @@ use App\Models\User;
 use App\Models\Category;
 use App\Models\Book;
 use App\Models\Profile;
+use App\Models\Author;
 use Illuminate\Database\Console\Seeds\WithoutModelEvents;
 use Illuminate\Database\Seeder;
 
@@ -31,11 +32,36 @@ class DatabaseSeeder extends Seeder
             'name' => 'Science',
         ]);
 
-        // Create sample books
+        // Create sample authors
+        $rifqi = Author::create([
+            'name' => 'M. Rifqi',
+            'email' => 'rifqi@example.com',
+            'bio' => 'Experienced Laravel developer and technical writer. Author of multiple programming books focused on web development.',
+        ]);
+
+        $johnDoeAuthor = Author::create([
+            'name' => 'John Doe',
+            'email' => 'johndoe.author@example.com',
+            'bio' => 'PHP enthusiast with 10+ years of experience. Passionate about teaching programming to beginners.',
+        ]);
+
+        $fitzgerald = Author::create([
+            'name' => 'F. Scott Fitzgerald',
+            'email' => 'fitzgerald@example.com',
+            'bio' => 'Classic American novelist known for depicting the Jazz Age. Author of The Great Gatsby and other literary masterpieces.',
+        ]);
+
+        $asimov = Author::create([
+            'name' => 'Isaac Asimov',
+            'email' => 'asimov@example.com',
+            'bio' => 'Prolific science fiction writer and biochemistry professor. Known for Robot and Foundation series.',
+        ]);
+
+        // Create sample books (One-to-Many: Author has many Books)
         Book::create([
             'book_code' => '001',
             'title' => 'Laravel',
-            'author' => 'M. Rifqi',
+            'author_id' => $rifqi->id,
             'price' => 100000,
             'category_id' => $programming->id,
         ]);
@@ -43,7 +69,7 @@ class DatabaseSeeder extends Seeder
         Book::create([
             'book_code' => '002',
             'title' => 'PHP for Beginners',
-            'author' => 'John Doe',
+            'author_id' => $johnDoeAuthor->id,
             'price' => 85000,
             'category_id' => $programming->id,
         ]);
@@ -51,9 +77,34 @@ class DatabaseSeeder extends Seeder
         Book::create([
             'book_code' => '003',
             'title' => 'The Great Gatsby',
-            'author' => 'F. Scott Fitzgerald',
+            'author_id' => $fitzgerald->id,
             'price' => 75000,
             'category_id' => $fiction->id,
+        ]);
+
+        // Additional books to demonstrate one-to-many (M. Rifqi has multiple books)
+        Book::create([
+            'book_code' => '004',
+            'title' => 'Advanced Laravel Techniques',
+            'author_id' => $rifqi->id,
+            'price' => 120000,
+            'category_id' => $programming->id,
+        ]);
+
+        Book::create([
+            'book_code' => '005',
+            'title' => 'Foundation',
+            'author_id' => $asimov->id,
+            'price' => 95000,
+            'category_id' => $science->id,
+        ]);
+
+        Book::create([
+            'book_code' => '006',
+            'title' => 'I, Robot',
+            'author_id' => $asimov->id,
+            'price' => 85000,
+            'category_id' => $science->id,
         ]);
 
         // Create test user

@@ -68,13 +68,13 @@
 
                     <h6 class="fw-bold mt-3">Eloquent Relationships:</h6>
                     <pre class="bg-light p-3 rounded"><code>// User Model
-public function profile(): HasOne 
+public function profile(): HasOne
 {
     return $this->hasOne(Profile::class);
 }
 
 // Profile Model
-public function user(): BelongsTo 
+public function user(): BelongsTo
 {
     return $this->belongsTo(User::class);
 }</code></pre>

@@ -29,8 +29,8 @@ updated_at
 
 ### Key Database Features
 
-✅ **UNIQUE Constraint** on `user_id`: Prevents multiple profiles for the same user  
-✅ **Foreign Key** with `CASCADE DELETE`: Deleting a user automatically deletes their profile  
+✅ **UNIQUE Constraint** on `user_id`: Prevents multiple profiles for the same user
+✅ **Foreign Key** with `CASCADE DELETE`: Deleting a user automatically deletes their profile
 ✅ **Nullable Bio**: Users can have a profile without a bio
 
 ## 🔗 Eloquent Relationships
@@ -81,7 +81,7 @@ Schema::create('profiles', function (Blueprint $table) {
     $table->unsignedBigInteger('user_id')->unique(); // CRITICAL: unique for 1-to-1
     $table->text('bio')->nullable();
     $table->timestamps();
-    
+
     $table->foreign('user_id')
           ->references('id')
           ->on('users')
@@ -117,7 +117,7 @@ public function index()
 }
 ```
 
-**Why Eager Loading?**  
+**Why Eager Loading?**
 Without `with('profile')`, Laravel would execute 1 query for users + N queries for each user's profile (N+1 problem). Eager loading fetches everything in just 2 queries.
 
 ### Route (`routes/web.php`)
@@ -199,12 +199,12 @@ Profile::find(1); // Returns null (profile was deleted)
 
 ### ❌ Mistake 1: Forgetting UNIQUE Constraint
 
-**Problem:** Multiple profiles for the same user  
+**Problem:** Multiple profiles for the same user
 **Solution:** Migration must have `->unique()` on `user_id` column
 
 ### ❌ Mistake 2: N+1 Query Problem
 
-**Problem:** Too many database queries  
+**Problem:** Too many database queries
 **Bad Code:**
 ```php
 $users = User::all(); // 1 query
@@ -220,7 +220,7 @@ $users = User::with('profile')->get(); // Just 2 queries total
 
 ### ❌ Mistake 3: Null Profile Errors
 
-**Problem:** Calling `$user->profile->bio` when user has no profile crashes  
+**Problem:** Calling `$user->profile->bio` when user has no profile crashes
 **Solution:** Always check if profile exists in views
 ```blade
 @if($user->profile)
@@ -276,8 +276,8 @@ docker compose exec php php artisan make:controller UserController
 
 **AI Prompt for ChatGPT/Claude:**
 ```
-I'm working with Laravel's one-to-one Eloquent relationships. I have a User model 
-that hasOne Profile, and a Profile model that belongsTo User. The profiles table 
+I'm working with Laravel's one-to-one Eloquent relationships. I have a User model
+that hasOne Profile, and a Profile model that belongsTo User. The profiles table
 has a unique user_id foreign key. Can you help me [explain your specific issue]?
 ```
 
@@ -295,5 +295,5 @@ docker compose exec php php artisan tinker
 
 ---
 
-**📝 Documentation created as part of web-enterprise-learn project**  
+**📝 Documentation created as part of web-enterprise-learn project**
 **Database relationships teaching module for Web Programming Enterprise class**
